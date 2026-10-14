@@ -1,4 +1,6 @@
 package raceliga.model;
 
-public record RaceSessionSummary(int id, String name, String track) {
+import java.math.BigDecimal;
+
+public record RaceSessionSummary(int id, String name, String track, String description, BigDecimal prize) {
 }

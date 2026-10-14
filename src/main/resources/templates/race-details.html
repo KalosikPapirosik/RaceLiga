@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head}"></head>
+<body>
+<header th:replace="~{fragments/navbar}"></header>
+<main id="main-content" class="container">
+  <article class="card">
+    <h1 th:text="${raceDetails.name}">Название</h1>
+    <dl>
+      <dt>Город</dt>
+      <dd th:text="${raceDetails.track}">Трек</dd>
+      <dt>Описание</dt>
+      <dd th:text="${raceDetails.description}">Описание</dd>
+      <dt>Призовой фонд</dt>
+      <dd>
+                <span th:text="${#numbers.formatDecimal(
+                    raceDetails.prize, 1, 2
+                )}">0,00</span> ₽
+      </dd>
+    </dl>
+  </article>
+  <a th:href="@{/races}">Вернуться к списку</a>
+</main>
+<footer th:replace="~{fragments/footer}"></footer>
+</body>
+</html>

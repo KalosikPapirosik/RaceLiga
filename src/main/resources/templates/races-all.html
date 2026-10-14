@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head}"></head>
+<body>
+<header th:replace="~{fragments/navbar}"></header>
+<main id="main-content" class="container">
+    <h1>Гонки</h1>
+    <p>Каталог гонок учебного приложения.</p>
+
+    <div class="grid" th:if="${!#lists.isEmpty(racesInfos)}">
+        <article class="card" th:each="raceSessionSummary : ${racesInfos}">
+            <h2 th:text="${raceSessionSummary.name}">Название</h2>
+            <p>
+                <strong>Трек:</strong>
+                <span th:text="${raceSessionSummary.track}">Трек</span>
+            </p>
+            <p th:text="${raceSessionSummary.description}">Описание</p>
+            <a th:href="@{/races/{raceName}(raceName=${raceSessionSummary.name})}">
+                Подробнее
+            </a>
+        </article>
+    </div>
+
+    <p th:if="${#lists.isEmpty(racesInfos)}">
+        Гонки пока не добавлены.
+    </p>
+</main>
+<footer th:replace="~{fragments/footer}"></footer>
+</body>
+</html>

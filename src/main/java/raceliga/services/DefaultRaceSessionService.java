@@ -3,6 +3,7 @@ package raceliga.services;
 import org.springframework.stereotype.Service;
 import raceliga.catalog.RaceSessionCatalog;
 import raceliga.model.RaceSessionSummary;
+import raceliga.services.exceptions.RaceSessionNotFoundException;
 
 import java.util.List;
 
@@ -20,7 +21,9 @@ public class DefaultRaceSessionService implements RaceSessionService {
         return raceSessionCatalog.findAll();
     }
 
-    public RaceSessionSummary raceById(int id) {
-        return raceSessionCatalog.findById(id);
+    public RaceSessionSummary raceDetails(String raceName) {
+        return raceSessionCatalog.findAll().stream()
+                .filter(raceSessionSummary -> raceSessionSummary.name().equals(raceName))
+                .findFirst().orElseThrow(() -> new RaceSessionNotFoundException(raceName));
     }
 }

@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface RaceSessionService {
     List<RaceSessionSummary> allRaces();
-    RaceSessionSummary raceById(int id);
+    RaceSessionSummary raceDetails(String raceName);
 }
