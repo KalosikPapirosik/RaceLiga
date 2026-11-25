@@ -1,0 +1,6 @@
+{
+  "name": "API Test Race",
+  "track": "Test Track",
+  "description": "Test Desc for my new rest API version",
+  "prize": 15000.00
+}

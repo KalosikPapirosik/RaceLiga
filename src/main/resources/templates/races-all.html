@@ -7,6 +7,8 @@
     <h1>Гонки</h1>
     <p>Каталог гонок учебного приложения.</p>
 
+    <p><a th:href="@{/races/add}">Добавить гонку</a></p>
+
     <div class="grid" th:if="${!#lists.isEmpty(racesInfos)}">
         <article class="card" th:each="raceSessionSummary : ${racesInfos}">
             <h2 th:text="${raceSessionSummary.name}">Название</h2>

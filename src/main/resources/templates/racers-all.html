@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head}"></head>
+<body>
+<header th:replace="~{fragments/navbar}"></header>
+<main id="main-content" class="container">
+<h1>Гонщики</h1>
+    <p class="notice" role="status" th:if="${successMessage}" th:text="${successMessage}"></p>
+
+    <p><a th:href="@{/racers/add}">Добавить гонщика</a></p>
+
+    <div class="grid" th:if="${!#lists.isEmpty(racers)}">
+        <article class="card" th:each="racer : ${racers}">
+            <h2 th:text="${racer.getFullName()}"></h2>
+            <p>Никнейм: <span th:text="${racer.nickname()}"></span></p>
+            <p>Номер: <span th:text="${racer.racingNumber()}"></span></p>
+            <p>Класс: <span th:text="${racer.racingClass()}"></span></p>
+            <p>Заезд: <a th:href="@{/races/{name}(name=${racer.raceName()})}" th:text="${racer.raceName()}"></a></p>
+        </article>
+    </div>
+
+    <p th:if="${#lists.isEmpty(racers)}">Гонщики пока не добавлены.</p>
+</main>
+<footer th:replace="~{fragments/footer}"></footer>
+</body>
+</html>

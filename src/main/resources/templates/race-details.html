@@ -20,6 +20,7 @@
     </dl>
   </article>
   <a th:href="@{/races}">Вернуться к списку</a>
+  <a th:href="@{/races/{raceName}/edit(raceName=${raceDetails.name})}">Редактировать</a>
 </main>
 <footer th:replace="~{fragments/footer}"></footer>
 </body>

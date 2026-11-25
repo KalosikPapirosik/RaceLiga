@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head}"></head>
+<body>
+<header th:replace="~{fragments/navbar}"></header>
+<main id="main-content" class="container">
+  <h1>Новый гонщик</h1>
+
+  <!-- Проверка, есть ли заезды. Без них нельзя создать гонщика -->
+  <p th:if="${#lists.isEmpty(allRaces)}">Сначала добавьте хотя бы один заезд.</p>
+
+  <form class="stack card" th:action="@{/racers/add}" method="post"
+        th:object="${racerForm}" novalidate>
+
+    <!-- Глобальные ошибки формы -->
+    <p class="error" role="alert" th:if="${#fields.hasAnyErrors()}">Исправьте отмеченные поля.</p>
+    <p class="error" role="alert" th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p>
+
+    <!-- Имя -->
+    <div>
+      <label for="firstName">Имя</label>
+      <input id="firstName" type="text" th:field="*{firstName}" maxlength="100" required
+             th:attr="aria-invalid=${#fields.hasErrors('firstName')},aria-describedby=${#fields.hasErrors('firstName') ? 'firstName-error' : null}">
+      <span id="firstName-error" class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+    </div>
+
+    <!-- Фамилия -->
+    <div>
+      <label for="lastName">Фамилия</label>
+      <input id="lastName" type="text" th:field="*{lastName}" maxlength="100" required
+             th:attr="aria-invalid=${#fields.hasErrors('lastName')},aria-describedby=${#fields.hasErrors('lastName') ? 'lastName-error' : null}">
+      <span id="lastName-error" class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+    </div>
+
+    <!-- Никнейм -->
+    <div>
+      <label for="nickname">Никнейм</label>
+      <input id="nickname" type="text" th:field="*{nickname}" maxlength="50" required
+             th:attr="aria-invalid=${#fields.hasErrors('nickname')},aria-describedby=${#fields.hasErrors('nickname') ? 'nickname-error' : null}">
+      <span id="nickname-error" class="error" th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}"></span>
+    </div>
+
+    <!-- Дата рождения (оставляем type="text", как в лекции, с подсказкой формата) -->
+    <div>
+      <label for="birthDate">Дата рождения, ГГГГ-ММ-ДД</label>
+      <input id="birthDate" type="text" th:field="*{birthDate}" placeholder="1998-04-12" required
+             th:attr="aria-invalid=${#fields.hasErrors('birthDate')},aria-describedby=${#fields.hasErrors('birthDate') ? 'birthDate-error' : null}">
+      <span id="birthDate-error" class="error" th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}"></span>
+    </div>
+
+    <!-- Гоночный номер -->
+    <div>
+      <label for="racingNumber">Гоночный номер</label>
+      <input id="racingNumber" type="number" th:field="*{racingNumber}" required
+             th:attr="aria-invalid=${#fields.hasErrors('racingNumber')},aria-describedby=${#fields.hasErrors('racingNumber') ? 'racingNumber-error' : null}">
+      <span id="racingNumber-error" class="error" th:if="${#fields.hasErrors('racingNumber')}" th:errors="*{racingNumber}"></span>
+    </div>
+
+    <!-- Класс гонок (Enum) -->
+    <div>
+      <label for="racingClass">Класс гонок</label>
+      <select id="racingClass" th:field="*{racingClass}" required
+              th:attr="aria-invalid=${#fields.hasErrors('racingClass')},aria-describedby=${#fields.hasErrors('racingClass') ? 'racingClass-error' : null}">
+        <option value="">Выберите класс</option>
+        <!-- Используем cls.name() для отправки значения и cls для отображения (или сделай метод title, как в лекции) -->
+        <option th:each="cls : ${racingClasses}" th:value="${cls.name()}" th:text="${cls}"></option>
+      </select>
+      <span id="racingClass-error" class="error" th:if="${#fields.hasErrors('racingClass')}" th:errors="*{racingClass}"></span>
+    </div>
+
+    <!-- Заезд -->
+    <div>
+      <label for="raceName">Заезд</label>
+      <select id="raceName" th:field="*{raceName}" required
+              th:attr="aria-invalid=${#fields.hasErrors('raceName')},aria-describedby=${#fields.hasErrors('raceName') ? 'raceName-error' : null}">
+        <option value="">Выберите заезд</option>
+        <option th:each="race : ${allRaces}" th:value="${race.name()}" th:text="${race.name()}"></option>
+      </select>
+      <span id="raceName-error" class="error" th:if="${#fields.hasErrors('raceName')}" th:errors="*{raceName}"></span>
+    </div>
+
+    <button type="submit">Добавить гонщика</button>
+  </form>
+
+  <p><a th:href="@{/racers}">Вернуться к гонщикам</a></p>
+</main>
+<footer th:replace="~{fragments/footer}"></footer>
+</body>
+</html>

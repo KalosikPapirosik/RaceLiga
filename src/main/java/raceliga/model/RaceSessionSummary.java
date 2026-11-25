@@ -1,6 +1,7 @@
 package raceliga.model;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
-public record RaceSessionSummary(int id, String name, String track, String description, BigDecimal prize) {
+public record RaceSessionSummary(UUID id, String name, String track, String description, BigDecimal prize) {
 }

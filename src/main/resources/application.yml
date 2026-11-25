@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    default: database
+  thymeleaf:
+    cache: false
+
+server:
+  error:
+    include-message: never
+    include-stacktrace: never
+  servlet:
+    session:
+      tracking-modes: cookie
